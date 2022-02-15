@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Aladin&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aladin&family=Lato:ital,wght@1,300&display=swap');
+@font-face {
+    font-family: 'latoblack';
+    src: url('../fonts/lato_black-webfont.woff2') format('woff2'),
+         url('../fonts/lato_black-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'latobold';
+    src: url('../fonts/lato_bold-webfont.woff2') format('woff2'),
+         url('../fonts/lato_bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'latoregular';
+    src: url('../fonts/lato_regular-webfont.woff2') format('woff2'),
+         url('../fonts/lato_regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body{
+    font-family: 'latoregular', sans-serif;
+    overflow-x: none !important;
+    font-size: 15px !important;
+    background-color: rgb(248, 246, 246) !important;
+}
+
+.navbar-brand,.aladin{
+    font-family: 'Aladin', cursive;
+}
+.navbar,footer{
+    background-color: #a57467 !important;
+}
+.navbar a:hover{
+    font-weight: 900;
+}
+footer p{
+    padding: 0px !important;
+    margin: 0px !important;
+}
+.title{
+    color:  #a57467 !important;
+}
+.italic{
+    font-family: 'Lato', sans-serif;
+}
+.card{
+    padding: 0px !important;
+}
+.card-body{
+    padding: 10px 15px 0px 15px !important;
+}
+.account-img {
+    height: 100px;
+    width: 100px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+.content-section {
+    background: #ffffff;
+    padding: 10px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    height: fit-content;
+  }
+  .icon{
+      height: 20px;
+  }

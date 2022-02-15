@@ -28,10 +28,10 @@ class ProdConfig(Config):
     pass
 
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://f1sher:admin123@localhost/auction_test'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://suleiman:db_password@localhost/auction_test'
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://f1sher:admin123@localhost/auction'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://suleiman:db_password@localhost/auction'
     DEBUG = True
 
 config_options = {
