@@ -28,9 +28,7 @@ def index():
   #   pitch.save_pitch()
   #   return redirect(url_for('.index'))
 
-  return render_template('index.html', title=title, user=user.username 
-  # pitch_form=form, pitches=pitches
-  )
+  return render_template('index.html', title=title, user=user.username)
 
 
 @main.route('/user/<uname>')
