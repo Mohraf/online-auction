@@ -11,7 +11,7 @@ class UpdateProfile(FlaskForm):
 
 
 class ItemForm(FlaskForm):
-    name = TextAreaField('Enter Your Name.',validators = [Required()])
-    description = TextArea('Enter Description Of The Item.')
-    startingPrice = IntField('Enter Your Starting Price.')
+    name = StringField('Enter Item Name.',validators = [Required()])
+    description = TextAreaField('Enter Description Of The Item.')
+    startingPrice = StringField('Enter Your Starting Price.')
     submit = SubmitField('Submit')

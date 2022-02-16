@@ -21,14 +21,9 @@ def index():
   title = 'Home - Welcome to PitchPal'
   user = current_user
 
-  # form = PitchForm()
+  items = AuctionItem.get_items()
 
-  # if form.validate_on_submit():
-  #   pitch = Pitch(title=form.title.data, category=form.category.data, user_id=user.id)
-  #   pitch.save_pitch()
-  #   return redirect(url_for('.index'))
-
-  return render_template('index.html', title=title, user=user.username)
+  return render_template('index.html', title=title, user=user.username, items=items)
 
 
 @main.route('/user/<uname>')
@@ -78,10 +73,12 @@ def update_pic(uname):
 @main.route('/add-item',methods= ['GET','POST'])
 @login_required
 def add_item():
+    user = current_user
     form = ItemForm()
 
     if form.validate_on_submit():
-        item = AuctionItem(name=form.name.data,description=form.description.data,startingPrice=form.startingPrice.data)
+        item = AuctionItem(name=form.name.data,description=form.description.data,starting_price=form.startingPrice.data, user_id=user.id)
+        item.save_item()
         return redirect(url_for('.index'))
     
     return render_template('new_auction.html', item_form=form)
