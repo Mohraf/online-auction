@@ -4,11 +4,43 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from . import login_manager
 from datetime import datetime
-import enum
 
 @login_manager.user_loader
 def load_user(user_id):
   return User.query.get(int(user_id))
+
+
+class ItemPhoto(db.Model):
+    __tablename__ = 'item_photos'
+    id = db.Column(db.Integer,primary_key = True)
+    pic_path = db.Column(db.String())
+    item_id = db.Column(db.Integer,db.ForeignKey("auction_items.id"))
+
+
+class AuctionItem(db.Model):
+    __tablename__ = 'auction_items'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String())
+    description = db.Column(db.String())
+    image_path = db.Column(db.String())
+    starting_price = db.Column(db.String())
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    photos = db.relationship('ItemPhoto',backref = 'auction_item',lazy = "dynamic")
+
+    def save_item(self):
+        db.session.add(self)
+        db.session.commit()
+    
+
+    @classmethod
+    def get_items(cls):
+        items = AuctionItem.query.all()
+        return items
+    
+
+    def get_item(cls, id):
+        item = AuctionItem.query.filter_by(user_id=id).all()
 
 
 class PhotoProfile(db.Model):
