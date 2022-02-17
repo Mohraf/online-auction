@@ -4,8 +4,8 @@ from flask import render_template, request, redirect, url_for, abort
 from . import main
 from flask_login import current_user, login_required
 from .. import db,photos
-from .forms import UpdateProfile, ItemForm
-from ..models import User, PhotoProfile, AuctionItem
+from .forms import UpdateProfile, ItemForm, CommentForm
+from ..models import User, PhotoProfile, AuctionItem,Comment
 from datetime import datetime
 
 import markdown2
@@ -82,3 +82,48 @@ def add_item():
         return redirect(url_for('.index'))
     
     return render_template('new_auction.html', item_form=form)
+
+@main.route('/like/<int:id>',methods = ['POST','GET'])
+@login_required
+def upvote(id):
+    pitches = Upvote.get_upvotes(id)
+    usr_id = f'{current_user.id}:{id}'
+    for auction in auction_items:
+        to_string = f'{auction}'
+        if usr_id == to_string:
+            return redirect(url_for('main.index',id=id))
+        else:
+            continue
+    new_vote = Upvote(user = current_user, auction_id=id)
+    new_vote.save()
+    return redirect(url_for('main.index',id=id))
+
+@main.route('/dislike/<int:id>',methods = ['POST','GET'])
+@login_required
+def downvote(id):
+    auction_items = Downvote.get_downvotes(id)
+    usr_id = f'{current_user.id}:{id}'
+    for auction in auction_items:
+        to_string = f'{auction}'
+        if usr_id == to_string:
+            return redirect(url_for('main.index',id=id))
+        else:
+            continue
+    new_downvote = Downvote(user = current_user, auction_id=id)
+    new_downvote.save()
+    return redirect(url_for('main.index',id = id))
+    
+@main.route('/comment/<int:auction_id>', methods = ['POST','GET'])
+@login_required
+def comment(auction_id):
+    form = CommentForm()
+    auction = AuctionItem.query.get(auction_id)
+    comments = Comment.query.filter_by(auction_id = auction_id).all()
+    if form.validate_on_submit():
+        comment = form.comment.data 
+        auction_id = auction_id
+        new_comment = Comment(comment = comment,auction_id = auction_id,user=current_user)
+        new_comment.save_comment()
+        return redirect(url_for('.comment', auction_id = auction_id))
+    
+    return render_template('comment.html', form =form, auction = auction,comments=comments)

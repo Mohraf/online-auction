@@ -27,6 +27,9 @@ class AuctionItem(db.Model):
     starting_price = db.Column(db.String())
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     photos = db.relationship('ItemPhoto',backref = 'auction_item',lazy = "dynamic")
+    upvote = db.relationship('Upvote',backref='auction_item',lazy='dynamic')
+    downvote = db.relationship('Downvote',backref='auction_item',lazy='dynamic')
+    comment = db.relationship('Comment', backref='auction_item', lazy='dynamic')
 
     def save_item(self):
         db.session.add(self)
@@ -64,6 +67,9 @@ class User(UserMixin, db.Model):
 
   password_hash = db.Column(db.String(255))
   photos = db.relationship('PhotoProfile',backref = 'user',lazy = "dynamic")
+  upvote = db.relationship('Upvote',backref='user',lazy='dynamic')
+  downvote = db.relationship('Downvote',backref='user',lazy='dynamic')
+  comment = db.relationship('Comment', backref='user', lazy='dynamic')
 #   reviews = db.relationship('Review',backref = 'user',lazy = "dynamic")
 
   @property
@@ -96,3 +102,63 @@ class Role(db.Model):
 
     def __repr__(self):
         return f'user {self.name}'
+
+
+class Upvote(db.Model):
+    __tablename__ = "upvotes"
+
+    id = db.Column(db.Integer,primary_key=True)
+    auction_id = db.Column(db.Integer,db.ForeignKey("auction_items.id"))
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+    
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_upvotes(cls,id):
+        upvote = Upvote.query.filter_by(auction_id=id).all()
+        return upvote
+
+
+    def __repr__(self):
+        return f'{self.user_id}:{self.auction_id}'
+class Downvote(db.Model):
+    __tablename__ = "downvotes"
+
+    id = db.Column(db.Integer,primary_key=True)
+    auction_id = db.Column(db.Integer,db.ForeignKey("auction_items.id"))
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+   
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+    @classmethod
+    def get_downvotes(cls,id):
+        downvote = Downvote.query.filter_by(auction_id=id).all()
+        return downvote
+
+    def __repr__(self):
+        return f'{self.user_id}:{self.auction_id}'
+
+
+class Comment(db.Model):
+    __tablename__ = "comments"
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.Text())
+    auction_id = db.Column(db.Integer,db.ForeignKey("auction_items.id"))
+    user_id = db.Column(db.Integer,db.ForeignKey("users.id"))
+
+    def save_comment(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls,id):
+        comments = Comment.query.filter_by(auction_id=id).all()
+
+        return comments
+
+    
+    def __repr__(self):
+        return f'comment:{self.comment}'
