@@ -5,7 +5,7 @@ from . import main
 from flask_login import current_user, login_required
 from .. import db,photos
 from .forms import UpdateProfile, ItemForm, CommentForm
-from ..models import User, PhotoProfile, AuctionItem,Comment
+from ..models import User, PhotoProfile, AuctionItem,Comment, Downvote, Upvote
 from datetime import datetime
 
 import markdown2
