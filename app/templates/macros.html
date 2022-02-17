@@ -6,20 +6,22 @@
     {% for auction in auctions %}
     <div class="col-md-4">
       <div class="card m-1 p-0">
-        <p class="card-header">Category: {{auction.category}}</p>
+        <p class="card-header">Name: {{auction.name}}</p>
         <div class="card-body">
-          <p class="m-0 p-0"><strong>{{auction.title}}</strong></p>
-          <p class="m-0 p-0">{{auction.post}}</p><br>
+          <p class="m-0 p-0"><strong>{{auction.description}}</strong></p>
+        <div>
+          <div class="card-body">
+            <p class="m-0 p-0"><strong>{{auction.starting_price}}</strong></p>
           <div>
             <span class="pl-3"><a href="{{url_for('main.upvote',id = auction.id)}}"> <img src="{{url_for('static', filename='photos/like.png')}}" alt=""
               class="icon"></a> {{auction.upvote.count()}}</span>
             <span class="pl-3"><a class="text-dark" href="{{url_for('main.downvote',id = auction.id)}}"> <img src="{{url_for('static', filename='photos/dislike.png')}}" alt=""
               class="icon"> {{auction.downvote.count()}}</a></span>
-            <span class="pl-4"><a href="{{url_for('main.comment',pitch_id = auction.id)}}" class="btn btn-outline-primary btn-sm"> Comment</a></span>
+            <span class="pl-4"><a href="{{url_for('main.comment',auction_id = auction.id)}}" class="btn btn-outline-primary btn-sm"> Comment</a></span>
           </div><br>
         </div>
         <div class="card-footer text-muted">
-          <p class="text-center p-0 m-0">Posted by: {{auction.user.username}} on {{auction.time.strftime('%Y-%m-%d')}}</p>
+          
         </div>
       </div>
     </div>

@@ -15,3 +15,7 @@ class ItemForm(FlaskForm):
     description = TextAreaField('Enter Description Of The Item.')
     startingPrice = StringField('Enter Your Starting Price.')
     submit = SubmitField('Submit')
+
+class CommentForm(FlaskForm):
+    comment = TextAreaField('Add a comment',validators=[Required()])
+    submit = SubmitField('Comment')
