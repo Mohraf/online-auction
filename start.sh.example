@@ -1,0 +1,7 @@
+export SECRET_KEY=''
+export MAIL_USERNAME=''
+export MAIL_PASSWORD=''
+export SQLALCHEMY_DATABASE_URI='postgresql+psycopg2://postgresuser:userpassword@localhost/dbname'
+export TEST_DATABASE_URI='postgresql+psycopg2://postgresuser:userpassword@localhost/dbname_test'
+
+python manage.py server
