@@ -2,7 +2,7 @@
 A web application to facilitate bidding for items online
 
 #### Python Flask Application
-#### By **Amos Okello**
+#### By **Amos Okello** , **Abdiraman Dubow** , **Fidelis Momanyi**, **Arnoldblair Munene**
 ## Description
 Flask app to facilitate bidding for items online
 ## Setup/Installation Requirements
